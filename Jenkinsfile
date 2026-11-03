@@ -111,6 +111,56 @@ pipeline {
         }
       }
       archiveArtifacts artifacts: 'reports/**', allowEmptyArchive: true
+      // Push reports to the gh-pages branch (GitHub Pages). A failure here never fails the build.
+script {
+  try {
+    withCredentials([usernamePassword(credentialsId: 'github-push',
+                                      usernameVariable: 'GH_USER',
+                                      passwordVariable: 'GH_TOKEN')]) {
+      sh '''
+        set -e
+        REPO="github.com/sajjaddk/jenkin-onlinesites.git"
+        rm -rf /tmp/gh-pages
+
+        if git ls-remote --exit-code --heads https://${GH_USER}:${GH_TOKEN}@${REPO} gh-pages >/dev/null 2>&1; then
+          git clone --branch gh-pages --single-branch https://${GH_USER}:${GH_TOKEN}@${REPO} /tmp/gh-pages
+        else
+          git init /tmp/gh-pages
+          cd /tmp/gh-pages
+          git checkout -b gh-pages
+          git remote add origin https://${GH_USER}:${GH_TOKEN}@${REPO}
+        fi
+
+        cd /tmp/gh-pages
+        rm -rf api playwright allure
+        mkdir -p api playwright allure
+        touch .nojekyll
+
+        [ -d "$WORKSPACE/reports/api" ]             && cp -r $WORKSPACE/reports/api/*             api/        || true
+        [ -d "$WORKSPACE/reports/playwright/html" ] && cp -r $WORKSPACE/reports/playwright/html/* playwright/ || true
+        [ -d "$WORKSPACE/allure-report" ]           && cp -r $WORKSPACE/allure-report/*           allure/     || true
+
+        cat > index.html <<EOF
+<h1>Jenkins QA Pipeline reports</h1>
+<p>Latest build: #${BUILD_NUMBER}</p>
+<ul>
+  <li><a href="allure/">Allure report</a></li>
+  <li><a href="playwright/">Playwright report</a></li>
+  <li><a href="api/">API report (Newman)</a></li>
+</ul>
+EOF
+
+        git config user.name  "Jenkins"
+        git config user.email "jenkins@home.local"
+        git add -A
+        git commit -m "Reports from build #${BUILD_NUMBER}" || echo "Nothing to commit"
+        git push origin gh-pages
+      '''
+    }
+  } catch (err) {
+    echo "Publishing reports to GitHub skipped: ${err.message}"
+  }
+}
     }
     success { echo 'All selected test suites passed.' }
     failure { echo 'A stage failed. Check the Test Result tab and the archived reports and screenshots.' }
