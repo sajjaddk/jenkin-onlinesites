@@ -42,8 +42,7 @@ Techniques: positive and negative testing, boundary and validation checks, autho
 
 Features: pipeline as code, SCM polling, a `SUITE` parameter (`all`, `newman`, `cypress`, `playwright`) to run part of the pipeline, a build timeout, build history limits, retries for flaky public sites, and no concurrent builds.
 
-## Set up Jenkins
-Follow [`docs/JENKINS_SETUP.md`](docs/JENKINS_SETUP.md) (Ubuntu Server, about 30–45 minutes).
+
 
 ## Run the tests without Jenkins
 Requires Node.js 20 or newer.
