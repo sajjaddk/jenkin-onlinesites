@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Restful-Booker API tests" tests="13" time="1.641">
+  <testsuite name="01 Health check" id="4feb166f-cfea-4e53-abeb-cae7d6de9eaa" timestamp="2026-11-03T10:03:28.819Z" tests="2" failures="0" errors="0" time="0.340">
+    <testcase name="Response time is under 3000 ms" time="0.340" classname="01HealthCheck"/>
+    <testcase name="API is up (201 Created is this API's ping response)" time="0.340" classname="01HealthCheck"/>
+  </testsuite>
+  <testsuite name="02 Create auth token" id="4c03002a-403f-4346-a42d-fb7d870c2021" timestamp="2026-11-03T10:03:28.819Z" tests="3" failures="0" errors="0" time="0.106">
+    <testcase name="Response time is under 3000 ms" time="0.106" classname="02CreateAuthToken"/>
+    <testcase name="Status is 200" time="0.106" classname="02CreateAuthToken"/>
+    <testcase name="Token is returned" time="0.106" classname="02CreateAuthToken"/>
+  </testsuite>
+  <testsuite name="03 Auth with wrong password is refused" id="6c0d256b-c257-40af-8b8f-e290df5f4b5f" timestamp="2026-11-03T10:03:28.819Z" tests="3" failures="0" errors="0" time="0.100">
+    <testcase name="Response time is under 3000 ms" time="0.100" classname="03AuthWithWrongPasswordIsRefused"/>
+    <testcase name="Status is 200 (API reports failure in the body)" time="0.100" classname="03AuthWithWrongPasswordIsRefused"/>
+    <testcase name="No token is returned" time="0.100" classname="03AuthWithWrongPasswordIsRefused"/>
+  </testsuite>
+  <testsuite name="04 Create booking" id="6c5df138-b6a6-420f-b2dc-4d7e556e3fd4" timestamp="2026-11-03T10:03:28.819Z" tests="4" failures="0" errors="0" time="0.101">
+    <testcase name="Response time is under 3000 ms" time="0.101" classname="04CreateBooking"/>
+    <testcase name="Status is 200" time="0.101" classname="04CreateBooking"/>
+    <testcase name="Booking id is a number" time="0.101" classname="04CreateBooking"/>
+    <testcase name="Returned booking matches what was sent" time="0.101" classname="04CreateBooking"/>
+  </testsuite>
+  <testsuite name="05 Get booking by id" id="4e55dffd-4b5a-4ff2-b661-20292ed9986c" timestamp="2026-11-03T10:03:28.819Z" tests="4" failures="0" errors="0" time="0.099">
+    <testcase name="Response time is under 3000 ms" time="0.099" classname="05GetBookingById"/>
+    <testcase name="Status is 200" time="0.099" classname="05GetBookingById"/>
+    <testcase name="Fields are correct" time="0.099" classname="05GetBookingById"/>
+    <testcase name="Response has the expected fields" time="0.099" classname="05GetBookingById"/>
+  </testsuite>
+  <testsuite name="06 List bookings contains the new booking" id="de96c3d0-084e-47b6-b9f2-4001eeec22df" timestamp="2026-11-03T10:03:28.819Z" tests="4" failures="0" errors="0" time="0.192">
+    <testcase name="Response time is under 3000 ms" time="0.192" classname="06ListBookingsContainsTheNewBooking"/>
+    <testcase name="Status is 200" time="0.192" classname="06ListBookingsContainsTheNewBooking"/>
+    <testcase name="Response is a non-empty array of ids" time="0.192" classname="06ListBookingsContainsTheNewBooking"/>
+    <testcase name="New booking is in the list" time="0.192" classname="06ListBookingsContainsTheNewBooking"/>
+  </testsuite>
+  <testsuite name="07 Filter bookings by name" id="98787352-a3c7-447c-bbf7-3ffe89cbde17" timestamp="2026-11-03T10:03:28.819Z" tests="3" failures="0" errors="0" time="0.105">
+    <testcase name="Response time is under 3000 ms" time="0.105" classname="07FilterBookingsByName"/>
+    <testcase name="Status is 200" time="0.105" classname="07FilterBookingsByName"/>
+    <testcase name="Filtered list includes our booking" time="0.105" classname="07FilterBookingsByName"/>
+  </testsuite>
+  <testsuite name="08 Update booking (PUT) with token" id="d905d42d-5030-416d-a8f8-e6e0b45f22d4" timestamp="2026-11-03T10:03:28.819Z" tests="3" failures="0" errors="0" time="0.100">
+    <testcase name="Response time is under 3000 ms" time="0.100" classname="08UpdateBookingPutWithToken"/>
+    <testcase name="Status is 200" time="0.100" classname="08UpdateBookingPutWithToken"/>
+    <testcase name="Booking was replaced" time="0.100" classname="08UpdateBookingPutWithToken"/>
+  </testsuite>
+  <testsuite name="09 Partial update (PATCH) with token" id="b93aba1e-07cf-4be3-9356-5d8a2755fd1d" timestamp="2026-11-03T10:03:28.819Z" tests="3" failures="0" errors="0" time="0.106">
+    <testcase name="Response time is under 3000 ms" time="0.106" classname="09PartialUpdatePatchWithToken"/>
+    <testcase name="Status is 200" time="0.106" classname="09PartialUpdatePatchWithToken"/>
+    <testcase name="Only the sent field changed" time="0.106" classname="09PartialUpdatePatchWithToken"/>
+  </testsuite>
+  <testsuite name="10 Update without token is forbidden" id="5a0aad32-8390-42c8-bc43-d3da77e8e326" timestamp="2026-11-03T10:03:28.819Z" tests="2" failures="0" errors="0" time="0.099">
+    <testcase name="Response time is under 3000 ms" time="0.099" classname="10UpdateWithoutTokenIsForbidden"/>
+    <testcase name="Status is 403 Forbidden" time="0.099" classname="10UpdateWithoutTokenIsForbidden"/>
+  </testsuite>
+  <testsuite name="11 Create booking with missing fields fails" id="3601b4db-849f-404f-87d3-022755cdf7c6" timestamp="2026-11-03T10:03:28.819Z" tests="2" failures="0" errors="0" time="0.098">
+    <testcase name="Response time is under 3000 ms" time="0.098" classname="11CreateBookingWithMissingFieldsFails"/>
+    <testcase name="Invalid payload is rejected (not 200)" time="0.098" classname="11CreateBookingWithMissingFieldsFails"/>
+  </testsuite>
+  <testsuite name="12 Delete booking with token" id="7a6f69ec-31d6-4732-934a-3fc6ff8f346a" timestamp="2026-11-03T10:03:28.819Z" tests="2" failures="0" errors="0" time="0.097">
+    <testcase name="Response time is under 3000 ms" time="0.097" classname="12DeleteBookingWithToken"/>
+    <testcase name="Status is 201 Created (this API's delete response)" time="0.097" classname="12DeleteBookingWithToken"/>
+  </testsuite>
+  <testsuite name="13 Deleted booking is gone" id="97bf6e4e-29b4-46ad-b774-813331530bcb" timestamp="2026-11-03T10:03:28.819Z" tests="2" failures="0" errors="0" time="0.098">
+    <testcase name="Response time is under 3000 ms" time="0.098" classname="13DeletedBookingIsGone"/>
+    <testcase name="Status is 404 Not Found" time="0.098" classname="13DeletedBookingIsGone"/>
+  </testsuite>
+</testsuites>

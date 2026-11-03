@@ -1,0 +1,1 @@
+[{"name":"Jenkins","type":"jenkins","url":"http://10.0.0.56:8080/","buildOrder":8,"buildName":"jenkins-qa-pipeline #8","buildUrl":"http://10.0.0.56:8080/job/jenkins-qa-pipeline/8/display/redirect","reportName":"AllureReport","reportUrl":"http://10.0.0.56:8080/job/jenkins-qa-pipeline/8/allure"}]
